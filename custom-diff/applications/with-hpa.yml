@@ -7,6 +7,11 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+      - /spec/replicas
 
   source:
     repoURL: https://github.com/codefresh-contrib/gitops-cert-level-2-examples.git
@@ -16,11 +21,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: example01
-    ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-      - /spec/replicas
 
   # Sync policy
   syncPolicy:
